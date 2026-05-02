@@ -30,5 +30,5 @@ This project is configured to deploy automatically to GitHub Pages on every push
 After deployment, you can customize the displayed name with the same query parameter:
 
 ```text
-https://dniggeler.github.io/splashvideo/?text=Anna
+https://dniggeler.github.io/splashvideo/?text=Didi%2BMaria
 ```

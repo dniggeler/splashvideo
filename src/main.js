@@ -36,7 +36,6 @@ app.innerHTML = `
   <div class="scene-shell">
     <canvas class="scene-canvas" aria-hidden="true"></canvas>
     <div class="overlay">
-      <p class="eyebrow">Three.js particle loop</p>
       <h1 data-display-text></h1>
       <p class="description">
         The name forms in space, bursts into particles, then gathers into a heart.
