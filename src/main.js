@@ -35,21 +35,13 @@ const displayText = getDisplayText()
 app.innerHTML = `
   <div class="scene-shell">
     <canvas class="scene-canvas" aria-hidden="true"></canvas>
-    <div class="overlay">
-      <button class="replay-button" type="button">Replay animation</button>
-    </div>
   </div>
 `
 
 const canvas = app.querySelector('.scene-canvas')
-const replayButton = app.querySelector('.replay-button')
 
 if (!(canvas instanceof HTMLCanvasElement)) {
   throw new Error('Scene canvas element was not found.')
-}
-
-if (!(replayButton instanceof HTMLButtonElement)) {
-  throw new Error('Replay button element was not found.')
 }
 
 document.title = `${displayText} ${TITLE_SUFFIX}`
@@ -158,10 +150,6 @@ const phaseColors = {
 }
 
 let loopStartTime = performance.now() * 0.001
-
-replayButton.addEventListener('click', () => {
-  loopStartTime = performance.now() * 0.001
-})
 
 window.addEventListener('resize', resizeScene)
 resizeScene()
