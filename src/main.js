@@ -36,10 +36,6 @@ app.innerHTML = `
   <div class="scene-shell">
     <canvas class="scene-canvas" aria-hidden="true"></canvas>
     <div class="overlay">
-      <h1 data-display-text></h1>
-      <p class="description">
-        The name forms in space, bursts into particles, then gathers into a heart.
-      </p>
       <button class="replay-button" type="button">Replay animation</button>
     </div>
   </div>
