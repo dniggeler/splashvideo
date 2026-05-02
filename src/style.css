@@ -82,6 +82,8 @@ h1 {
   font-size: clamp(2.9rem, 7vw, 5.8rem);
   line-height: 0.92;
   letter-spacing: -0.04em;
+  max-width: min(14ch, 100%);
+  overflow-wrap: anywhere;
   text-shadow: 0 0 32px rgba(255, 111, 182, 0.16);
 }
 

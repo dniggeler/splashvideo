@@ -20,18 +20,24 @@ import {
   WebGLRenderer,
 } from 'three'
 
+const DEFAULT_DISPLAY_TEXT = 'Bubuzinha'
+const MAX_DISPLAY_TEXT_LENGTH = 24
+const TITLE_SUFFIX = 'Heart Particles'
+
 const app = document.querySelector('#app')
 
 if (!app) {
   throw new Error('App root element was not found.')
 }
 
+const displayText = getDisplayText()
+
 app.innerHTML = `
   <div class="scene-shell">
     <canvas class="scene-canvas" aria-hidden="true"></canvas>
     <div class="overlay">
       <p class="eyebrow">Three.js particle loop</p>
-      <h1>Bubuzinha</h1>
+      <h1 data-display-text></h1>
       <p class="description">
         The name forms in space, bursts into particles, then gathers into a heart.
       </p>
@@ -41,15 +47,23 @@ app.innerHTML = `
 `
 
 const canvas = app.querySelector('.scene-canvas')
+const heading = app.querySelector('[data-display-text]')
 const replayButton = app.querySelector('.replay-button')
 
 if (!(canvas instanceof HTMLCanvasElement)) {
   throw new Error('Scene canvas element was not found.')
 }
 
+if (!(heading instanceof HTMLHeadingElement)) {
+  throw new Error('Display text heading element was not found.')
+}
+
 if (!(replayButton instanceof HTMLButtonElement)) {
   throw new Error('Replay button element was not found.')
 }
+
+heading.textContent = displayText
+document.title = `${displayText} ${TITLE_SUFFIX}`
 
 const renderer = new WebGLRenderer({
   canvas,
@@ -78,7 +92,7 @@ scene.add(ambientLight, keyLight, fillLight)
 const particleGroup = new Group()
 scene.add(particleGroup)
 
-const textPoints = sampleTextPoints('Bubuzinha')
+const textPoints = sampleTextPoints(displayText)
 const heartPoints = sampleHeartPoints()
 const particleCount = Math.max(textPoints.length, heartPoints.length, 3200)
 
@@ -163,6 +177,25 @@ replayButton.addEventListener('click', () => {
 window.addEventListener('resize', resizeScene)
 resizeScene()
 renderer.setAnimationLoop(renderFrame)
+
+function getDisplayText() {
+  const searchParams = new URLSearchParams(window.location.search)
+  const textFromQuery = searchParams.get('text') ?? ''
+  const normalizedText = normalizeDisplayText(textFromQuery)
+
+  return normalizedText || DEFAULT_DISPLAY_TEXT
+}
+
+function normalizeDisplayText(value) {
+  const collapsedWhitespace = value.trim().replace(/\s+/g, ' ')
+  const characters = Array.from(collapsedWhitespace)
+
+  if (characters.length <= MAX_DISPLAY_TEXT_LENGTH) {
+    return collapsedWhitespace
+  }
+
+  return characters.slice(0, MAX_DISPLAY_TEXT_LENGTH).join('').trimEnd()
+}
 
 function renderFrame() {
   const now = performance.now() * 0.001
