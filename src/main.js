@@ -42,22 +42,16 @@ app.innerHTML = `
 `
 
 const canvas = app.querySelector('.scene-canvas')
-const heading = app.querySelector('[data-display-text]')
 const replayButton = app.querySelector('.replay-button')
 
 if (!(canvas instanceof HTMLCanvasElement)) {
   throw new Error('Scene canvas element was not found.')
 }
 
-if (!(heading instanceof HTMLHeadingElement)) {
-  throw new Error('Display text heading element was not found.')
-}
-
 if (!(replayButton instanceof HTMLButtonElement)) {
   throw new Error('Replay button element was not found.')
 }
 
-heading.textContent = displayText
 document.title = `${displayText} ${TITLE_SUFFIX}`
 
 const renderer = new WebGLRenderer({
